@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>1899.12.30 00:00:00.000.503,C:\Users\timof\Desktop\Calculator by TT\calc.dproj=C:\Users\timof\Documents\Embarcadero\Studio\Projects\Project1.dproj</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.761,C:\Users\timof\Desktop\Calculator by TT\calculator.dfm=C:\Users\timof\Desktop\Calculator by TT\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.397,=C:\Users\timof\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.769,C:\Users\timof\Desktop\Calculator by TT\Unit1.pas=C:\Users\timof\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.769,C:\Users\timof\Desktop\Calculator by TT\Unit1.dfm=C:\Users\timof\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>1899.12.30 00:00:00.000.761,C:\Users\timof\Desktop\Calculator by TT\calculator.pas=C:\Users\timof\Desktop\Calculator by TT\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>
