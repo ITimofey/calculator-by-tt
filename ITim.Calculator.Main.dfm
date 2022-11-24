@@ -260,4 +260,13 @@ object FormCalculator: TFormCalculator
     TabOrder = 20
     OnClick = BtnCommaClick
   end
+  object BtnNegative: TButton
+    Left = 8
+    Top = 199
+    Width = 54
+    Height = 25
+    Caption = #177
+    TabOrder = 21
+    OnClick = BtnNegativeClick
+  end
 end

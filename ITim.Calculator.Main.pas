@@ -29,6 +29,7 @@ type
     BtnErase: TButton;
     BtnClear: TButton;
     BtnClearEdit: TButton;
+    BtnNegative: TButton;
     procedure Btn0Click(Sender: TObject);
     procedure Btn1Click(Sender: TObject);
     procedure Btn2Click(Sender: TObject);
@@ -48,6 +49,7 @@ type
     procedure BtnClearClick(Sender: TObject);
     procedure BtnResultClick(Sender: TObject);
     procedure BtnClearEditClick(Sender: TObject);
+    procedure BtnNegativeClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -150,6 +152,15 @@ end;
 procedure TFormCalculator.Btn9Click(Sender: TObject);
 begin
   AddValueToField('9');
+end;
+
+procedure TFormCalculator.BtnNegativeClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+    CalcFieldValue := StrToFloat(CalcField.Text);
+    CalcFieldValue := CalcFieldValue * (-1);
+    CalcField.Text := FloatToStr(CalcFieldValue);
 end;
 
 procedure TFormCalculator.BtnCommaClick(Sender: TObject);
