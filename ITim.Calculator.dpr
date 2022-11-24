@@ -2,13 +2,13 @@ program ITim.Calculator;
 
 uses
   Vcl.Forms,
-  calculator in 'calculator.pas' {Form1};
+  ITim.Calculator.Main in 'ITim.Calculator.Main.pas' {FormCalculator};
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  Application.CreateForm(TForm1, Form1);
+  Application.CreateForm(TFormCalculator, FormCalculator);
   Application.Run;
 end.
