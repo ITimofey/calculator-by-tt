@@ -326,8 +326,15 @@ var
   CalcFieldValue: Real;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
-  CalcFieldValue := sqrt(CalcFieldValue);
-  CalcField.Text := FloatToStr(CalcFieldValue);
+  if CalcFieldValue >= 0 then
+  begin
+    CalcFieldValue := sqrt(CalcFieldValue);
+    CalcField.Text := FloatToStr(CalcFieldValue);
+  end else
+  begin
+    ShowMessage('ОШИБКА! Квадратный корень отрицательного значения.');
+    BtnClearClick(nil);
+  end;
 end;
 
 {$endregion}
@@ -355,8 +362,8 @@ begin
       ValueResult := Value1 / Value2;
     end else
     begin
-      ShowMessage('Деление на 0!');
-      CalcField.Text := '0'
+      ShowMessage('ОШИБКА! Деление на 0.');
+      BtnClearClick(nil);
     end;
 
     end;

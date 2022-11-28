@@ -65,6 +65,7 @@ type
     procedure BtnPercentClick(Sender: TObject);
     procedure BtnOneDividedByXClick(Sender: TObject);
     procedure BtnSquaringClick(Sender: TObject);
+    procedure BtnSquaringRootClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -316,8 +317,23 @@ var
   CalcFieldValue: Real;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
-  CalcFieldValue := 1 / CalcFieldValue;
+  CalcFieldValue := sqr(CalcFieldValue);
   CalcField.Text := FloatToStr(CalcFieldValue);
+end;
+
+procedure TFormCalculator.BtnSquaringRootClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  if CalcFieldValue >= 0 then
+  begin
+    CalcFieldValue := sqrt(CalcFieldValue);
+    CalcField.Text := FloatToStr(CalcFieldValue);
+  end else
+  begin
+    ShowMessage('ВНИМАНИЕ! Квадратный корень отрицательного значения!');
+  end;
 end;
 
 {$endregion}
