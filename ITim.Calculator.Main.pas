@@ -3,8 +3,16 @@ unit ITim.Calculator.Main;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls;
+  Winapi.Windows,
+  Winapi.Messages,
+  System.SysUtils,
+  System.Variants,
+  System.Classes,
+  Vcl.Graphics,
+  Vcl.Controls,
+  Vcl.Forms,
+  Vcl.Dialogs,
+  Vcl.StdCtrls;
 
 type
   TFormCalculator = class(TForm)
@@ -30,6 +38,10 @@ type
     BtnClear: TButton;
     BtnClearEdit: TButton;
     BtnNegative: TButton;
+    BtnSquaring: TButton;
+    BtnSquaringRoot: TButton;
+    BtnPercent: TButton;
+    BtnOneDividedByX: TButton;
     procedure Btn0Click(Sender: TObject);
     procedure Btn1Click(Sender: TObject);
     procedure Btn2Click(Sender: TObject);
@@ -50,6 +62,10 @@ type
     procedure BtnResultClick(Sender: TObject);
     procedure BtnClearEditClick(Sender: TObject);
     procedure BtnNegativeClick(Sender: TObject);
+    procedure BtnPercentClick(Sender: TObject);
+    procedure BtnOneDividedByXClick(Sender: TObject);
+    procedure BtnSquaringClick(Sender: TObject);
+    procedure BtnSquaringRootClick(Sender: TObject);
 
   private
     { Private declarations }
@@ -154,13 +170,13 @@ begin
   AddValueToField('9');
 end;
 
-procedure TFormCalculator.BtnNegativeClick(Sender: TObject);
+procedure TFormCalculator.BtnNegativeClick(Sender: TObject); // Перенести в CalcResult
 var
   CalcFieldValue: Real;
 begin
-    CalcFieldValue := StrToFloat(CalcField.Text);
-    CalcFieldValue := CalcFieldValue * (-1);
-    CalcField.Text := FloatToStr(CalcFieldValue);
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  CalcFieldValue := CalcFieldValue * (-1);
+  CalcField.Text := FloatToStr(CalcFieldValue);
 end;
 
 procedure TFormCalculator.BtnCommaClick(Sender: TObject);
@@ -185,6 +201,7 @@ begin
 
   Value1 := 0;
   Value2 := 0;
+  ValueResult := 0;
   CalcOperation := ' ';
 end;
 
@@ -279,6 +296,40 @@ begin
   end;
 end;
 
+procedure TFormCalculator.BtnPercentClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '%';
+  NeedToClearCalcField := True;
+end;
+
+procedure TFormCalculator.BtnOneDividedByXClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  CalcFieldValue := 1 / CalcFieldValue;
+  CalcField.Text := FloatToStr(CalcFieldValue);
+end;
+
+procedure TFormCalculator.BtnSquaringClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  CalcFieldValue := sqr(CalcFieldValue);
+  CalcField.Text := FloatToStr(CalcFieldValue);
+end;
+
+procedure TFormCalculator.BtnSquaringRootClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  CalcFieldValue := sqrt(CalcFieldValue);
+  CalcField.Text := FloatToStr(CalcFieldValue);
+end;
+
 {$endregion}
 
 {$REGION ' СalcResult: Функция подсчёта результата '}
@@ -308,6 +359,10 @@ begin
       CalcField.Text := '0'
     end;
 
+    end;
+
+    '%' : begin
+      ValueResult := Value1 / 100 * Value2;
     end;
   end;
 end;
