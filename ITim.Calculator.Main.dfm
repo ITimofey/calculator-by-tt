@@ -275,7 +275,7 @@ object FormCalculator: TFormCalculator
     Top = 123
     Width = 54
     Height = 25
-    Caption = 'x*x'
+    Caption = 'x'#178
     TabOrder = 22
     OnClick = BtnSquaringClick
   end

@@ -2,7 +2,7 @@ object FormCalculator: TFormCalculator
   Left = 0
   Top = 0
   Caption = 'Calculator by TT'
-  ClientHeight = 242
+  ClientHeight = 285
   ClientWidth = 280
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -27,11 +27,12 @@ object FormCalculator: TFormCalculator
     Top = 8
     Width = 262
     Height = 21
+    Enabled = False
     TabOrder = 1
   end
   object Btn0: TButton
     Left = 76
-    Top = 199
+    Top = 247
     Width = 54
     Height = 25
     Caption = '0'
@@ -46,7 +47,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn1: TButton
     Left = 8
-    Top = 168
+    Top = 216
     Width = 54
     Height = 25
     Caption = '1'
@@ -61,7 +62,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn2: TButton
     Left = 76
-    Top = 168
+    Top = 216
     Width = 54
     Height = 25
     Caption = '2'
@@ -76,7 +77,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn3: TButton
     Left = 144
-    Top = 168
+    Top = 216
     Width = 54
     Height = 25
     Caption = '3'
@@ -91,7 +92,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn4: TButton
     Left = 8
-    Top = 137
+    Top = 185
     Width = 54
     Height = 25
     Caption = '4'
@@ -106,7 +107,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn5: TButton
     Left = 76
-    Top = 137
+    Top = 185
     Width = 54
     Height = 25
     Caption = '5'
@@ -121,7 +122,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn6: TButton
     Left = 144
-    Top = 137
+    Top = 185
     Width = 54
     Height = 25
     Caption = '6'
@@ -136,7 +137,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn7: TButton
     Left = 8
-    Top = 106
+    Top = 154
     Width = 54
     Height = 25
     Caption = '7'
@@ -151,7 +152,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn8: TButton
     Left = 76
-    Top = 106
+    Top = 154
     Width = 54
     Height = 25
     Caption = '8'
@@ -166,7 +167,7 @@ object FormCalculator: TFormCalculator
   end
   object Btn9: TButton
     Left = 144
-    Top = 106
+    Top = 154
     Width = 54
     Height = 25
     Caption = '9'
@@ -180,8 +181,8 @@ object FormCalculator: TFormCalculator
     OnClick = Btn9Click
   end
   object BtnClearEdit: TButton
-    Left = 8
-    Top = 75
+    Left = 76
+    Top = 92
     Width = 54
     Height = 25
     Caption = 'CE'
@@ -189,8 +190,8 @@ object FormCalculator: TFormCalculator
     OnClick = BtnClearEditClick
   end
   object BtnClear: TButton
-    Left = 76
-    Top = 75
+    Left = 144
+    Top = 92
     Width = 54
     Height = 25
     Caption = 'C'
@@ -198,8 +199,8 @@ object FormCalculator: TFormCalculator
     OnClick = BtnClearClick
   end
   object BtnErase: TButton
-    Left = 144
-    Top = 75
+    Left = 216
+    Top = 92
     Width = 54
     Height = 25
     Caption = #8592
@@ -208,7 +209,7 @@ object FormCalculator: TFormCalculator
   end
   object BtnDivide: TButton
     Left = 216
-    Top = 75
+    Top = 123
     Width = 54
     Height = 25
     Caption = '\'
@@ -217,7 +218,7 @@ object FormCalculator: TFormCalculator
   end
   object BtnMultiply: TButton
     Left = 216
-    Top = 106
+    Top = 154
     Width = 54
     Height = 25
     Caption = '*'
@@ -226,7 +227,7 @@ object FormCalculator: TFormCalculator
   end
   object BtnMinus: TButton
     Left = 216
-    Top = 137
+    Top = 185
     Width = 54
     Height = 25
     Caption = '-'
@@ -235,7 +236,7 @@ object FormCalculator: TFormCalculator
   end
   object BtnPlus: TButton
     Left = 216
-    Top = 168
+    Top = 216
     Width = 54
     Height = 25
     Caption = '+'
@@ -244,7 +245,7 @@ object FormCalculator: TFormCalculator
   end
   object BtnResult: TButton
     Left = 216
-    Top = 199
+    Top = 247
     Width = 54
     Height = 25
     Caption = '='
@@ -253,7 +254,7 @@ object FormCalculator: TFormCalculator
   end
   object BtnComma: TButton
     Left = 144
-    Top = 199
+    Top = 247
     Width = 54
     Height = 25
     Caption = ','
@@ -262,11 +263,48 @@ object FormCalculator: TFormCalculator
   end
   object BtnNegative: TButton
     Left = 8
-    Top = 199
+    Top = 247
     Width = 54
     Height = 25
     Caption = #177
     TabOrder = 21
     OnClick = BtnNegativeClick
+  end
+  object BtnSquaring: TButton
+    Left = 76
+    Top = 123
+    Width = 54
+    Height = 25
+    Caption = 'x*x'
+    TabOrder = 22
+    OnClick = BtnSquaringClick
+  end
+  object BtnSquaringRoot: TButton
+    Left = 144
+    Top = 123
+    Width = 54
+    Height = 25
+    Caption = #8730
+    TabOrder = 23
+    OnClick = BtnSquaringRootClick
+  end
+  object BtnPercent: TButton
+    Left = 8
+    Top = 123
+    Width = 54
+    Height = 25
+    Caption = '%'
+    TabOrder = 24
+    OnClick = BtnPercentClick
+  end
+  object BtnOneDividedByX: TButton
+    Left = 8
+    Top = 92
+    Width = 54
+    Height = 25
+    Caption = '1/x'
+    Enabled = False
+    TabOrder = 25
+    OnClick = BtnOneDividedByXClick
   end
 end
