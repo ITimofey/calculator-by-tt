@@ -303,7 +303,6 @@ object FormCalculator: TFormCalculator
     Width = 54
     Height = 25
     Caption = '1/x'
-    Enabled = False
     TabOrder = 25
     OnClick = BtnOneDividedByXClick
   end
