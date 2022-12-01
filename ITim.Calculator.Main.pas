@@ -313,7 +313,8 @@ begin
   CalcFieldValue := StrToFloat(CalcField.Text);
   if CalcFieldValue <>0 then
   begin
-    CalcFieldValue := 1 / CalcFieldValue;
+    //CalcFieldValue := 1 / CalcFieldValue; // В данном случае результат получается неточным ! ! !
+    CalcFieldValue := exp((-1) * ln(CalcFieldValue));
     CalcField.Text := FloatToStr(CalcFieldValue);
   end else
   begin
