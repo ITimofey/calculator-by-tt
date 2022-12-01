@@ -72,7 +72,7 @@ type
   public
     { Public declarations }
     procedure AddValueToField(AddValue: Char);
-    procedure CalcResult();
+    function CalcResult() : Real;
   end;
 
 var
@@ -86,7 +86,6 @@ var
   Value1: Real;
   Value2: Real;
   CalcOperation: Char;
-  ValueResult: Real;
 
 implementation
 
@@ -201,7 +200,6 @@ begin
 
   Value1 := 0;
   Value2 := 0;
-  ValueResult := 0;
   CalcOperation := ' ';
 end;
 
@@ -272,18 +270,18 @@ begin
 end;
 
 procedure TFormCalculator.BtnResultClick(Sender: TObject);
+var
+  ValueResult : Real;
 begin
   if IsResultPressFirst = True then
   begin
     Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
-    CalcResult;
-    Value1 := ValueResult;
+    ValueResult := CalcResult;
     CalcField.Text := FloatToStr(ValueResult);
     IsResultPressFirst := False;
   end else
   begin
-    CalcResult;
-    Value1 := ValueResult;
+    ValueResult := CalcResult;
     CalcField.Text := FloatToStr(ValueResult);
   end;
   NeedToClearCalcField := True;
@@ -341,37 +339,41 @@ end;
 
 {$REGION ' СalcResult: Функция подсчёта результата '}
 
-procedure TFormCalculator.CalcResult();
+function TFormCalculator.CalcResult() : Real;
+var
+  ResultValue: Real;
 begin
+  ResultValue := 0;
   case CalcOperation of
     '+' : begin
-      ValueResult := Value1 + Value2;
+      ResultValue := Value1 + Value2;
     end;
 
     '-' : begin
-      ValueResult := Value1 - Value2;
+      ResultValue := Value1 - Value2;
     end;
 
     '*' : begin
-      ValueResult := Value1 * Value2;
+      ResultValue := Value1 * Value2;
     end;
 
     '/' : begin
-    if Value2<>0 then
-    begin
-      ValueResult := Value1 / Value2;
-    end else
-    begin
-      ShowMessage('ОШИБКА! Деление на 0.');
-      BtnClearClick(nil);
-    end;
-
+      if Value2<>0 then
+        begin
+          ResultValue := Value1 / Value2;
+        end else
+        begin
+          ShowMessage('ОШИБКА! Деление на 0.');
+          BtnClearClick(nil);
+        end;
     end;
 
     '%' : begin
-      ValueResult := Value1 / 100 * Value2;
+      ResultValue := Value1 / 100 * Value2;
     end;
   end;
+  Value1 := ResultValue;
+  Result := ResultValue;
 end;
 
 {$endregion}
