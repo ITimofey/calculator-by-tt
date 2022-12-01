@@ -77,9 +77,10 @@ type
 
 var
   FormCalculator: TFormCalculator;
-  IsContainsOnlyNull: Boolean = True; // Переработать использование логических флагов при определённых сценариях.
+  IsContainsOnlyNull: Boolean = True;
   IsCommaExists: Boolean = False;
   IsResultPressFirst: Boolean = True;
+  IsOperationFirst: Boolean = True;
   NeedToClearCalcField: Boolean = False;
 
   Value1: Real;
@@ -90,15 +91,13 @@ implementation
 
 {$R *.dfm}
 
-{$REGION ' AddValueToField: Ввод значений в калькулятор '}
-
+{$Region ' AddValueToField: Процедура ввода значений в калькулятор '}
 procedure TFormCalculator.AddValueToField(AddValue: Char);
 begin // Добавить значение в строку
   if NeedToClearCalcField = True then
   begin
     CalcField.Text := '';
     NeedToClearCalcField := False;
-    //EraseEnable := True;
   end;
 
   if IsContainsOnlyNull = True then
@@ -112,10 +111,11 @@ begin // Добавить значение в строку
   end;
   IsResultPressFirst := True;
 end;
+{$EndRegion}
 
-{$endregion}
+{$Region ' btnClick: Обработка нажатий кнопок калькулятора '}
 
-{$REGION ' btnClick: Обработка нажатий кнопок калькулятора '}
+{$Region ' btnClick: Кнопки 0 - 9 '}
 
 procedure TFormCalculator.Btn0Click(Sender: TObject);
 begin
@@ -167,6 +167,10 @@ procedure TFormCalculator.Btn9Click(Sender: TObject);
 begin
   AddValueToField('9');
 end;
+
+{$EndRegion}
+
+{$Region ' btnClick: Функциональные кнопки '}
 
 procedure TFormCalculator.BtnNegativeClick(Sender: TObject); // Перенести в CalcResult
 var
@@ -239,6 +243,10 @@ begin
   end;
 end;
 
+{$EndRegion}
+
+{$Region ' Арифметические операции '}
+
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
   Value1 := StrToFloat(CalcField.Text);
@@ -267,6 +275,13 @@ begin
   NeedToClearCalcField := True;
 end;
 
+procedure TFormCalculator.BtnPercentClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '%';
+  NeedToClearCalcField := True;
+end;
+
 procedure TFormCalculator.BtnResultClick(Sender: TObject);
 var
   ValueResult : Real;
@@ -289,13 +304,6 @@ begin
     IsContainsOnlyNull  := True;
     IsCommaExists := False;
   end;
-end;
-
-procedure TFormCalculator.BtnPercentClick(Sender: TObject);
-begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '%';
-  NeedToClearCalcField := True;
 end;
 
 procedure TFormCalculator.BtnOneDividedByXClick(Sender: TObject);
@@ -332,9 +340,11 @@ begin
   end;
 end;
 
-{$endregion}
+{$EndRegion}
 
-{$REGION ' СalcResult: Функция подсчёта результата '}
+{$EndRegion}
+
+{$Region ' СalcResult: Функция подсчёта результата '}
 
 function TFormCalculator.CalcResult() : Real;
 var
@@ -373,6 +383,6 @@ begin
   Result := ResultValue;
 end;
 
-{$endregion}
+{$EndRegion}
 
 end.
