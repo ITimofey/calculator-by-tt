@@ -245,7 +245,7 @@ end;
 
 {$EndRegion}
 
-{$Region ' Арифметические операции '}
+{$Region ' btnClick: Арифметические операции '}
 
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
@@ -311,8 +311,14 @@ var
   CalcFieldValue: Real;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
-  CalcFieldValue := 1 / CalcFieldValue;
-  CalcField.Text := FloatToStr(CalcFieldValue);
+  if CalcFieldValue <>0 then
+  begin
+    CalcFieldValue := 1 / CalcFieldValue;
+    CalcField.Text := FloatToStr(CalcFieldValue);
+  end else
+  begin
+    ShowMessage('ОШИБКА! Деление на ноль.');
+  end;
 end;
 
 procedure TFormCalculator.BtnSquaringClick(Sender: TObject);
@@ -370,7 +376,7 @@ begin
           ResultValue := Value1 / Value2;
         end else
         begin
-          ShowMessage('ОШИБКА! Деление на 0.');
+          ShowMessage('ОШИБКА! Деление на ноль.');
           BtnClearClick(nil);
         end;
     end;
