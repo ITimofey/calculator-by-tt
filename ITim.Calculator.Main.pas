@@ -80,7 +80,6 @@ var
   IsContainsOnlyNull: Boolean = True; // Переработать использование логических флагов при определённых сценариях.
   IsCommaExists: Boolean = False;
   IsResultPressFirst: Boolean = True;
-  IsEraseEnable: Boolean = True; // Пока не используется. Надо подумОть.
   NeedToClearCalcField: Boolean = False;
 
   Value1: Real;
@@ -196,7 +195,6 @@ begin
   NeedToClearCalcField  := False;
   IsCommaExists := False;
   IsContainsOnlyNull := True;
-  IsEraseEnable := True;
 
   Value1 := 0;
   Value2 := 0;
@@ -216,7 +214,7 @@ var
   CalcFieldValue: String;
 
 begin
-  if (CalcField.Text <> '') and (IsEraseEnable = True) then
+  if (CalcField.Text <> '') then
   begin
     CalcFieldValue := CalcField.Text;
 
@@ -285,7 +283,6 @@ begin
     CalcField.Text := FloatToStr(ValueResult);
   end;
   NeedToClearCalcField := True;
-  //IsEraseEnable := False;
 
   if CalcField.Text = '0' then
   begin
