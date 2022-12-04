@@ -66,6 +66,7 @@ type
     procedure BtnOneDividedByXClick(Sender: TObject);
     procedure BtnSquaringClick(Sender: TObject);
     procedure BtnSquaringRootClick(Sender: TObject);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
 
   private
     { Private declarations }
@@ -388,6 +389,91 @@ begin
   end;
   Value1 := ResultValue;
   Result := ResultValue;
+end;
+
+procedure TFormCalculator.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  case Key of
+    '0':
+    begin
+      Btn0Click(Btn0);
+    end;
+
+    '1':
+    begin
+      Btn1Click(Btn1);
+    end;
+
+    '2':
+    begin
+      Btn2Click(Btn2);
+    end;
+
+    '3':
+    begin
+      Btn3Click(Btn3);
+    end;
+
+    '4':
+    begin
+      Btn4Click(Btn4);
+    end;
+
+    '5':
+    begin
+      Btn5Click(Btn5);
+    end;
+
+    '6':
+    begin
+      Btn6Click(Btn6);
+    end;
+
+    '7':
+    begin
+      Btn7Click(Btn7);
+    end;
+
+    '8':
+    begin
+      Btn8Click(Btn8);
+    end;
+
+    '9':
+    begin
+      Btn9Click(Btn9);
+    end;
+
+    '+':
+    begin
+      BtnPlusClick(BtnPlus);
+    end;
+
+    '-':
+    begin
+      BtnMinusClick(BtnMinus);
+    end;
+
+    '*':
+    begin
+      BtnMultiplyClick(BtnMultiply);
+    end;
+
+    '/':
+    begin
+      BtnDivideClick(BtnDivide);
+    end;
+
+    '.':
+    begin
+      BtnCommaClick(BtnComma);
+    end;
+
+    #13:
+    begin
+      BtnResultClick(BtnResult);
+    end;
+  end;
 end;
 
 {$EndRegion}
