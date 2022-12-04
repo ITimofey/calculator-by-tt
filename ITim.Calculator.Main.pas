@@ -72,7 +72,8 @@ type
     { Private declarations }
   public
     { Public declarations }
-    procedure AddValueToField(AddValue: Char);
+    procedure AddValueToCalcField(AddValue: Char);
+    procedure UpdateFormulaField(CalcOperationType: Char);
     function CalcResult() : Real;
   end;
 
@@ -92,9 +93,9 @@ implementation
 
 {$R *.dfm}
 
-{$Region ' AddValueToField: Процедура ввода значений в калькулятор '}
+{$Region ' AddValueToCalcField: Процедура ввода значений в калькулятор '}
 
-procedure TFormCalculator.AddValueToField(AddValue: Char);
+procedure TFormCalculator.AddValueToCalcField(AddValue: Char);
 begin // Добавить значение в строку
   if NeedToClearCalcField = True then
   begin
@@ -116,6 +117,24 @@ end;
 
 {$EndRegion}
 
+{$Region ' UpdateFormulaField: Процедура обновления поля с формулой '}
+
+procedure TFormCalculator.UpdateFormulaField(CalcOperationType: Char);
+begin
+  case CalcOperationType of
+    'A' : begin // Арифметический тип операции
+      FormulaField.Text := FloatToStr(Value1) + ' ' + CalcOperation;
+    end;
+
+    'R' : begin // Результирующий тип операции
+      FormulaField.Text := FloatToStr(Value1) + ' '
+      + CalcOperation + ' ' + FloatToStr(Value2) + ' = ';
+    end;
+  end;
+end;
+
+{$EndRegion}
+
 {$Region ' BtnClick: Обработка нажатий кнопок калькулятора '}
 
 {$Region ' BtnClick: Кнопки 0 - 9 '}
@@ -123,57 +142,166 @@ end;
 procedure TFormCalculator.Btn0Click(Sender: TObject);
 begin
 if IsContainsOnlyNull = False then
-  AddValueToField('0');
+  AddValueToCalcField('0');
 end;
 
 procedure TFormCalculator.Btn1Click(Sender: TObject);
 begin
-  AddValueToField('1');
+  AddValueToCalcField('1');
 end;
 
 procedure TFormCalculator.Btn2Click(Sender: TObject);
 begin
-  AddValueToField('2');
+  AddValueToCalcField('2');
 end;
 
 procedure TFormCalculator.Btn3Click(Sender: TObject);
 begin
-  AddValueToField('3');
+  AddValueToCalcField('3');
 end;
 
 procedure TFormCalculator.Btn4Click(Sender: TObject);
 begin
-  AddValueToField('4');
+  AddValueToCalcField('4');
 end;
 
 procedure TFormCalculator.Btn5Click(Sender: TObject);
 begin
-  AddValueToField('5');
+  AddValueToCalcField('5');
 end;
 
 procedure TFormCalculator.Btn6Click(Sender: TObject);
 begin
-  AddValueToField('6');
+  AddValueToCalcField('6');
 end;
 
 procedure TFormCalculator.Btn7Click(Sender: TObject);
 begin
-  AddValueToField('7');
+  AddValueToCalcField('7');
 end;
 
 procedure TFormCalculator.Btn8Click(Sender: TObject);
 begin
-  AddValueToField('8');
+  AddValueToCalcField('8');
 end;
 
 procedure TFormCalculator.Btn9Click(Sender: TObject);
 begin
-  AddValueToField('9');
+  AddValueToCalcField('9');
 end;
 
 {$EndRegion}
 
-{$Region ' BtnClick: Функциональные кнопки '}
+{$Region ' BtnClick: Арифметические операции '}
+
+procedure TFormCalculator.btnPlusClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '+';
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
+end;
+
+procedure TFormCalculator.BtnMinusClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '-';
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
+end;
+
+procedure TFormCalculator.BtnMultiplyClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '*';
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
+end;
+
+procedure TFormCalculator.BtnDivideClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '/';
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
+end;
+
+procedure TFormCalculator.BtnPercentClick(Sender: TObject);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := '%';
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
+end;
+
+procedure TFormCalculator.BtnResultClick(Sender: TObject);
+var
+  ValueResult : Real;
+begin
+  if IsResultPressFirst = True then
+  begin
+    Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
+    ValueResult := CalcResult;
+    CalcField.Text := FloatToStr(ValueResult);
+    IsResultPressFirst := False;
+  end else
+  begin
+    ValueResult := CalcResult;
+    CalcField.Text := FloatToStr(ValueResult);
+  end;
+  NeedToClearCalcField := True;
+
+  if CalcField.Text = '0' then
+  begin
+    IsContainsOnlyNull  := True;
+    IsCommaExists := False;
+  end;
+end;
+
+procedure TFormCalculator.BtnOneDividedByXClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  if CalcFieldValue <>0 then
+  begin
+    //CalcFieldValue := 1 / CalcFieldValue; // В данном случае результат получается неточным ! ! !
+    CalcFieldValue := exp((-1) * ln(CalcFieldValue));
+    CalcField.Text := FloatToStr(CalcFieldValue);
+  end else
+  begin
+    ShowMessage('ОШИБКА! Деление на ноль.');
+  end;
+end;
+
+procedure TFormCalculator.BtnSquaringClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  CalcFieldValue := sqr(CalcFieldValue);
+  CalcField.Text := FloatToStr(CalcFieldValue);
+end;
+
+procedure TFormCalculator.BtnSquaringRootClick(Sender: TObject);
+var
+  CalcFieldValue: Real;
+begin
+  CalcFieldValue := StrToFloat(CalcField.Text);
+  if CalcFieldValue >= 0 then
+  begin
+    CalcFieldValue := sqrt(CalcFieldValue);
+    CalcField.Text := FloatToStr(CalcFieldValue);
+  end else
+  begin
+    ShowMessage('ОШИБКА! Квадратный корень отрицательного значения.');
+    BtnClearClick(nil);
+  end;
+end;
+
+{$EndRegion}
+
+{$Region ' BtnClick: Прочие операции '}
 
 procedure TFormCalculator.BtnNegativeClick(Sender: TObject); // Перенести в CalcResult
 var
@@ -243,110 +371,6 @@ begin
   begin
     CalcField.Text := '0';
     IsContainsOnlyNull := True;
-  end;
-end;
-
-{$EndRegion}
-
-{$Region ' BtnClick: Арифметические операции '}
-
-procedure TFormCalculator.btnPlusClick(Sender: TObject);
-begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '+';
-  NeedToClearCalcField := True;
-end;
-
-procedure TFormCalculator.BtnMinusClick(Sender: TObject);
-begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '-';
-  NeedToClearCalcField := True;
-end;
-
-procedure TFormCalculator.BtnMultiplyClick(Sender: TObject);
-begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '*';
-  NeedToClearCalcField := True;
-end;
-
-procedure TFormCalculator.BtnDivideClick(Sender: TObject);
-begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '/';
-  NeedToClearCalcField := True;
-end;
-
-procedure TFormCalculator.BtnPercentClick(Sender: TObject);
-begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '%';
-  NeedToClearCalcField := True;
-end;
-
-procedure TFormCalculator.BtnResultClick(Sender: TObject);
-var
-  ValueResult : Real;
-begin
-  if IsResultPressFirst = True then
-  begin
-    Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
-    ValueResult := CalcResult;
-    CalcField.Text := FloatToStr(ValueResult);
-    IsResultPressFirst := False;
-  end else
-  begin
-    ValueResult := CalcResult;
-    CalcField.Text := FloatToStr(ValueResult);
-  end;
-  NeedToClearCalcField := True;
-
-  if CalcField.Text = '0' then
-  begin
-    IsContainsOnlyNull  := True;
-    IsCommaExists := False;
-  end;
-end;
-
-procedure TFormCalculator.BtnOneDividedByXClick(Sender: TObject);
-var
-  CalcFieldValue: Real;
-begin
-  CalcFieldValue := StrToFloat(CalcField.Text);
-  if CalcFieldValue <>0 then
-  begin
-    //CalcFieldValue := 1 / CalcFieldValue; // В данном случае результат получается неточным ! ! !
-    CalcFieldValue := exp((-1) * ln(CalcFieldValue));
-    CalcField.Text := FloatToStr(CalcFieldValue);
-  end else
-  begin
-    ShowMessage('ОШИБКА! Деление на ноль.');
-  end;
-end;
-
-procedure TFormCalculator.BtnSquaringClick(Sender: TObject);
-var
-  CalcFieldValue: Real;
-begin
-  CalcFieldValue := StrToFloat(CalcField.Text);
-  CalcFieldValue := sqr(CalcFieldValue);
-  CalcField.Text := FloatToStr(CalcFieldValue);
-end;
-
-procedure TFormCalculator.BtnSquaringRootClick(Sender: TObject);
-var
-  CalcFieldValue: Real;
-begin
-  CalcFieldValue := StrToFloat(CalcField.Text);
-  if CalcFieldValue >= 0 then
-  begin
-    CalcFieldValue := sqrt(CalcFieldValue);
-    CalcField.Text := FloatToStr(CalcFieldValue);
-  end else
-  begin
-    ShowMessage('ОШИБКА! Квадратный корень отрицательного значения.');
-    BtnClearClick(nil);
   end;
 end;
 
@@ -478,6 +502,7 @@ begin
       ResultValue := Value1 / 100 * Value2;
     end;
   end;
+  UpdateFormulaField('R');
   Value1 := ResultValue;
   Result := ResultValue;
 end;
