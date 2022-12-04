@@ -214,7 +214,7 @@ object FormCalculator: TFormCalculator
     Top = 123
     Width = 54
     Height = 25
-    Caption = '\'
+    Caption = '/'
     TabOrder = 15
     OnClick = BtnDivideClick
   end
