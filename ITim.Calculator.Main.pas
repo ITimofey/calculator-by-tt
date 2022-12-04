@@ -17,7 +17,7 @@ uses
 type
   TFormCalculator = class(TForm)
     CalcField: TEdit;
-    JournalField: TEdit;
+    FormulaField: TEdit;
     Btn0: TButton;
     Btn1: TButton;
     Btn2: TButton;
@@ -93,6 +93,7 @@ implementation
 {$R *.dfm}
 
 {$Region ' AddValueToField: Процедура ввода значений в калькулятор '}
+
 procedure TFormCalculator.AddValueToField(AddValue: Char);
 begin // Добавить значение в строку
   if NeedToClearCalcField = True then
@@ -112,11 +113,12 @@ begin // Добавить значение в строку
   end;
   IsResultPressFirst := True;
 end;
+
 {$EndRegion}
 
-{$Region ' btnClick: Обработка нажатий кнопок калькулятора '}
+{$Region ' BtnClick: Обработка нажатий кнопок калькулятора '}
 
-{$Region ' btnClick: Кнопки 0 - 9 '}
+{$Region ' BtnClick: Кнопки 0 - 9 '}
 
 procedure TFormCalculator.Btn0Click(Sender: TObject);
 begin
@@ -171,7 +173,7 @@ end;
 
 {$EndRegion}
 
-{$Region ' btnClick: Функциональные кнопки '}
+{$Region ' BtnClick: Функциональные кнопки '}
 
 procedure TFormCalculator.BtnNegativeClick(Sender: TObject); // Перенести в CalcResult
 var
@@ -196,7 +198,7 @@ end;
 procedure TFormCalculator.BtnClearClick(Sender: TObject);
 begin
   CalcField.Text := '0';
-  JournalField.Text:= '';
+  FormulaField.Text:= '';
   NeedToClearCalcField  := False;
   IsCommaExists := False;
   IsContainsOnlyNull := True;
@@ -246,7 +248,7 @@ end;
 
 {$EndRegion}
 
-{$Region ' btnClick: Арифметические операции '}
+{$Region ' BtnClick: Арифметические операции '}
 
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
@@ -350,46 +352,7 @@ end;
 
 {$EndRegion}
 
-{$EndRegion}
-
-{$Region ' СalcResult: Функция подсчёта результата '}
-
-function TFormCalculator.CalcResult() : Real;
-var
-  ResultValue: Real;
-begin
-  ResultValue := 0;
-  case CalcOperation of
-    '+' : begin
-      ResultValue := Value1 + Value2;
-    end;
-
-    '-' : begin
-      ResultValue := Value1 - Value2;
-    end;
-
-    '*' : begin
-      ResultValue := Value1 * Value2;
-    end;
-
-    '/' : begin
-      if Value2<>0 then
-        begin
-          ResultValue := Value1 / Value2;
-        end else
-        begin
-          ShowMessage('ОШИБКА! Деление на ноль.');
-          BtnClearClick(nil);
-        end;
-    end;
-
-    '%' : begin
-      ResultValue := Value1 / 100 * Value2;
-    end;
-  end;
-  Value1 := ResultValue;
-  Result := ResultValue;
-end;
+{$Region ' FormKeyPress: Обработка нажатий клавиш '}
 
 procedure TFormCalculator.FormKeyPress(Sender: TObject; var Key: Char);
 begin
@@ -474,6 +437,49 @@ begin
       BtnResultClick(BtnResult);
     end;
   end;
+end;
+
+{$EndRegion}
+
+{$EndRegion}
+
+{$Region ' СalcResult: Функция подсчёта результата '}
+
+function TFormCalculator.CalcResult() : Real;
+var
+  ResultValue: Real;
+begin
+  ResultValue := 0;
+  case CalcOperation of
+    '+' : begin
+      ResultValue := Value1 + Value2;
+    end;
+
+    '-' : begin
+      ResultValue := Value1 - Value2;
+    end;
+
+    '*' : begin
+      ResultValue := Value1 * Value2;
+    end;
+
+    '/' : begin
+      if Value2<>0 then
+        begin
+          ResultValue := Value1 / Value2;
+        end else
+        begin
+          ShowMessage('ОШИБКА! Деление на ноль.');
+          BtnClearClick(nil);
+        end;
+    end;
+
+    '%' : begin
+      ResultValue := Value1 / 100 * Value2;
+    end;
+  end;
+  Value1 := ResultValue;
+  Result := ResultValue;
 end;
 
 {$EndRegion}

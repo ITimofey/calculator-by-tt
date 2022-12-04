@@ -25,7 +25,7 @@ object FormCalculator: TFormCalculator
     TabOrder = 0
     Text = '0'
   end
-  object JournalField: TEdit
+  object FormulaField: TEdit
     Left = 8
     Top = 8
     Width = 262
