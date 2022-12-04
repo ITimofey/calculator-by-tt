@@ -20,6 +20,7 @@ object FormCalculator: TFormCalculator
     Top = 32
     Width = 262
     Height = 21
+    Alignment = taRightJustify
     Enabled = False
     TabOrder = 0
     Text = '0'
@@ -29,6 +30,7 @@ object FormCalculator: TFormCalculator
     Top = 8
     Width = 262
     Height = 21
+    Alignment = taRightJustify
     Enabled = False
     TabOrder = 1
   end
