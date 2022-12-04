@@ -460,6 +460,11 @@ begin
     begin
       BtnResultClick(BtnResult);
     end;
+
+    #8:
+    begin
+      BtnEraseClick(BtnErase);
+    end;
   end;
 end;
 
