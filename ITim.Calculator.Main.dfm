@@ -10,7 +10,9 @@ object FormCalculator: TFormCalculator
   Font.Height = -11
   Font.Name = 'Tahoma'
   Font.Style = []
+  KeyPreview = True
   OldCreateOrder = False
+  OnKeyPress = FormKeyPress
   PixelsPerInch = 96
   TextHeight = 13
   object CalcField: TEdit
@@ -18,15 +20,17 @@ object FormCalculator: TFormCalculator
     Top = 32
     Width = 262
     Height = 21
+    Alignment = taRightJustify
     Enabled = False
     TabOrder = 0
     Text = '0'
   end
-  object JournalField: TEdit
+  object FormulaField: TEdit
     Left = 8
     Top = 8
     Width = 262
     Height = 21
+    Alignment = taRightJustify
     Enabled = False
     TabOrder = 1
   end
@@ -212,7 +216,7 @@ object FormCalculator: TFormCalculator
     Top = 123
     Width = 54
     Height = 25
-    Caption = '\'
+    Caption = '/'
     TabOrder = 15
     OnClick = BtnDivideClick
   end
