@@ -74,6 +74,7 @@ type
     { Public declarations }
     procedure AddValueToCalcField(AddValue: Char);
     procedure UpdateFormulaField(CalcOperationType: Char);
+    procedure PressAryphmeticOperation(OperationSymbol: Char);
     function CalcResult() : Real;
   end;
 
@@ -131,6 +132,18 @@ begin
       + CalcOperation + ' ' + FloatToStr(Value2) + ' = ';
     end;
   end;
+end;
+
+{$EndRegion}
+
+{$Region ' PressAryphmeticOperation: Процедура обработки нажатия арифметической операции '}
+
+procedure TFormCalculator.PressAryphmeticOperation(OperationSymbol: Char);
+begin
+  Value1 := StrToFloat(CalcField.Text);
+  CalcOperation := OperationSymbol;
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
 end;
 
 {$EndRegion}
@@ -196,42 +209,27 @@ end;
 
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '+';
-  UpdateFormulaField('A');
-  NeedToClearCalcField := True;
+  PressAryphmeticOperation('+');
 end;
 
 procedure TFormCalculator.BtnMinusClick(Sender: TObject);
 begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '-';
-  UpdateFormulaField('A');
-  NeedToClearCalcField := True;
+  PressAryphmeticOperation('-');
 end;
 
 procedure TFormCalculator.BtnMultiplyClick(Sender: TObject);
 begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '*';
-  UpdateFormulaField('A');
-  NeedToClearCalcField := True;
+  PressAryphmeticOperation('*');
 end;
 
 procedure TFormCalculator.BtnDivideClick(Sender: TObject);
 begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '/';
-  UpdateFormulaField('A');
-  NeedToClearCalcField := True;
+  PressAryphmeticOperation('/');
 end;
 
 procedure TFormCalculator.BtnPercentClick(Sender: TObject);
 begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := '%';
-  UpdateFormulaField('A');
-  NeedToClearCalcField := True;
+  PressAryphmeticOperation('%');
 end;
 
 procedure TFormCalculator.BtnResultClick(Sender: TObject);
