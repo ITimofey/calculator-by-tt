@@ -87,7 +87,7 @@ var
 
   Value1: Real;
   Value2: Real;
-  CalcOperation: Char;
+  CalcOperation: Char = ' ';
 
 implementation
 
@@ -238,23 +238,26 @@ procedure TFormCalculator.BtnResultClick(Sender: TObject);
 var
   ValueResult : Real;
 begin
-  if IsResultPressFirst = True then
+  if CalcOperation <> ' ' then
   begin
-    Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
-    ValueResult := CalcResult;
-    CalcField.Text := FloatToStr(ValueResult);
-    IsResultPressFirst := False;
-  end else
-  begin
-    ValueResult := CalcResult;
-    CalcField.Text := FloatToStr(ValueResult);
-  end;
-  NeedToClearCalcField := True;
+    if IsResultPressFirst = True then
+    begin
+      Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
+      ValueResult := CalcResult;
+      CalcField.Text := FloatToStr(ValueResult);
+      IsResultPressFirst := False;
+    end else
+    begin
+      ValueResult := CalcResult;
+      CalcField.Text := FloatToStr(ValueResult);
+    end;
+    NeedToClearCalcField := True;
 
-  if CalcField.Text = '0' then
-  begin
-    IsContainsOnlyNull  := True;
-    IsCommaExists := False;
+    if CalcField.Text = '0' then
+    begin
+      IsContainsOnlyNull  := True;
+      IsCommaExists := False;
+    end;
   end;
 end;
 
