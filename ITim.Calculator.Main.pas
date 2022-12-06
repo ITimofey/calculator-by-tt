@@ -136,7 +136,7 @@ end;
 
 {$EndRegion}
 
-{$Region ' PressAryphmeticOperation: Процедура обработки нажатия математической операции '}
+{$Region ' PressAryphmeticOperation: Процедура обработки нажатия арифметической операции '}
 
 procedure TFormCalculator.PressAryphmeticOperation(OperationSymbol: Char);
 begin
@@ -205,25 +205,28 @@ end;
 
 {$EndRegion}
 
-{$Region ' BtnClick: Математические операции '}
+{$Region ' BtnClick: Арифметические операции '}
 
-// Простые математические операции
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
   PressAryphmeticOperation('+');
 end;
+
 procedure TFormCalculator.BtnMinusClick(Sender: TObject);
 begin
   PressAryphmeticOperation('-');
 end;
+
 procedure TFormCalculator.BtnMultiplyClick(Sender: TObject);
 begin
   PressAryphmeticOperation('*');
 end;
+
 procedure TFormCalculator.BtnDivideClick(Sender: TObject);
 begin
   PressAryphmeticOperation('/');
 end;
+
 procedure TFormCalculator.BtnPercentClick(Sender: TObject);
 begin
   PressAryphmeticOperation('%');
