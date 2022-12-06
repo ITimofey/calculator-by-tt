@@ -205,7 +205,7 @@ end;
 
 {$EndRegion}
 
-{$Region ' BtnClick: Арифметические операции '}
+{$Region ' BtnClick: Математические операции '}
 
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
