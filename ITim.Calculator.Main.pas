@@ -75,7 +75,7 @@ type
     procedure AddValueToCalcField(AddValue: Char);
     procedure UpdateFormulaField(CalcOperationType: Char);
     procedure PressAryphmeticOperation(OperationSymbol: Char);
-    function CalcResult() : Real;
+    function CalcResult() : Extended;
   end;
 
 var
@@ -86,8 +86,8 @@ var
   IsOperationFirst: Boolean = True;
   NeedToClearCalcField: Boolean = False;
 
-  Value1: Real;
-  Value2: Real;
+  Value1: Extended;
+  Value2: Extended;
   CalcOperation: Char = ' ';
 
 implementation
@@ -150,9 +150,9 @@ end;
 
 {$Region ' СalcResult: Функция подсчёта результата '}
 
-function TFormCalculator.CalcResult() : Real;
+function TFormCalculator.CalcResult() : Extended;
 var
-  ResultValue: Real;
+  ResultValue: Extended;
 begin
   ResultValue := 0;
   case CalcOperation of
@@ -277,7 +277,7 @@ end;
 
 procedure TFormCalculator.BtnResultClick(Sender: TObject);
 var
-  ValueResult : Real;
+  ValueResult : Extended;
 begin
   if CalcOperation <> ' ' then
   begin
@@ -304,7 +304,7 @@ end;
 
 procedure TFormCalculator.BtnOneDividedByXClick(Sender: TObject);
 var
-  CalcFieldValue: Real;
+  CalcFieldValue: Extended;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
   if CalcFieldValue <> 0 then
@@ -319,7 +319,7 @@ end;
 
 procedure TFormCalculator.BtnSquaringClick(Sender: TObject);
 var
-  CalcFieldValue: Real;
+  CalcFieldValue: Extended;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
   CalcFieldValue := sqr(CalcFieldValue);
@@ -328,7 +328,7 @@ end;
 
 procedure TFormCalculator.BtnSquaringRootClick(Sender: TObject);
 var
-  CalcFieldValue: Real;
+  CalcFieldValue: Extended;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
   if CalcFieldValue >= 0 then
@@ -348,7 +348,7 @@ end;
 
 procedure TFormCalculator.BtnNegativeClick(Sender: TObject);
 var
-  CalcFieldValue: Real;
+  CalcFieldValue: Extended;
 begin
   CalcFieldValue := StrToFloat(CalcField.Text);
   CalcFieldValue := CalcFieldValue * (-1);
