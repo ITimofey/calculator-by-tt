@@ -1,6 +1,7 @@
 object FormCalculator: TFormCalculator
   Left = 0
   Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
   Caption = #1050#1072#1083#1100#1082#1091#1083#1103#1090#1086#1088
   ClientHeight = 354
