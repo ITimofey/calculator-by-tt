@@ -12,36 +12,36 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Dialogs,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls, Vcl.Buttons;
 
 type
   TFormCalculator = class(TForm)
     CalcField: TEdit;
     FormulaField: TEdit;
-    Btn0: TButton;
-    Btn1: TButton;
-    Btn2: TButton;
-    Btn3: TButton;
-    Btn4: TButton;
-    Btn5: TButton;
-    Btn6: TButton;
-    Btn7: TButton;
-    Btn8: TButton;
-    Btn9: TButton;
-    BtnComma: TButton;
-    BtnPlus: TButton;
-    BtnMinus: TButton;
-    BtnMultiply: TButton;
-    BtnDivide: TButton;
-    BtnResult: TButton;
-    BtnErase: TButton;
-    BtnClear: TButton;
-    BtnClearEdit: TButton;
-    BtnNegative: TButton;
-    BtnSquaring: TButton;
-    BtnSquaringRoot: TButton;
-    BtnPercent: TButton;
-    BtnOneDividedByX: TButton;
+    BtnOneByX: TSpeedButton;
+    BtnClearEdit: TSpeedButton;
+    BtnClear: TSpeedButton;
+    BtnErase: TSpeedButton;
+    BtnPercent: TSpeedButton;
+    BtnSquaring: TSpeedButton;
+    BtnSquaringRoot: TSpeedButton;
+    BtnDivide: TSpeedButton;
+    Btn7: TSpeedButton;
+    Btn8: TSpeedButton;
+    Btn9: TSpeedButton;
+    BtnMultiply: TSpeedButton;
+    Btn4: TSpeedButton;
+    Btn5: TSpeedButton;
+    Btn6: TSpeedButton;
+    BtnMinus: TSpeedButton;
+    Btn1: TSpeedButton;
+    Btn2: TSpeedButton;
+    Btn3: TSpeedButton;
+    BtnPlus: TSpeedButton;
+    BtnNegative: TSpeedButton;
+    Btn0: TSpeedButton;
+    BtnComma: TSpeedButton;
+    BtnResult: TSpeedButton;
     procedure Btn0Click(Sender: TObject);
     procedure Btn1Click(Sender: TObject);
     procedure Btn2Click(Sender: TObject);
@@ -63,7 +63,7 @@ type
     procedure BtnClearEditClick(Sender: TObject);
     procedure BtnNegativeClick(Sender: TObject);
     procedure BtnPercentClick(Sender: TObject);
-    procedure BtnOneDividedByXClick(Sender: TObject);
+    procedure BtnOneByXClick(Sender: TObject);
     procedure BtnSquaringClick(Sender: TObject);
     procedure BtnSquaringRootClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
@@ -302,7 +302,7 @@ begin
   end;
 end;
 
-procedure TFormCalculator.BtnOneDividedByXClick(Sender: TObject);
+procedure TFormCalculator.BtnOneByXClick(Sender: TObject);
 var
   CalcFieldValue: Extended;
 begin
