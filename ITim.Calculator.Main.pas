@@ -83,10 +83,12 @@ var
   IsResultPressFirst: Boolean = True;
   IsOperationFirst: Boolean = True;
   NeedToClearCalcField: Boolean = False;
+  LastOperationIsPressAryphmeticOperation: Boolean = False;
 
   Value1: Extended;
   Value2: Extended;
   CalcOperation: Char = ' ';
+
 
 implementation
 
@@ -112,6 +114,7 @@ begin // Добавить значение в строку
     CalcField.Text := CalcField.Text + AddValue;
   end;
   IsResultPressFirst := True;
+  LastOperationIsPressAryphmeticOperation := False;
 end;
 
 {$EndRegion}
@@ -140,19 +143,24 @@ procedure TFormCalculator.PressAryphmeticOperation(OperationSymbol: Char);
 var
   ValueResult: Extended;
 begin
-  if IsOperationFirst = True then
+  if LastOperationIsPressAryphmeticOperation <> True then
   begin
-    Value1 := StrToFloat(CalcField.Text);
-  end else
-  begin
-    Value2 := StrToFloat(CalcField.Text);
-    ValueResult := CalcResult;
-    CalcField.Text := FloatToStr(ValueResult);
+    if IsOperationFirst = True then
+    begin
+      Value1 := StrToFloat(CalcField.Text);
+    end else
+    begin
+      Value2 := StrToFloat(CalcField.Text);
+      ValueResult := CalcResult;
+      CalcField.Text := FloatToStr(ValueResult);
+    end;
+
+    NeedToClearCalcField := True;
+    IsOperationFirst := False;
+    LastOperationIsPressAryphmeticOperation := True;
   end;
   CalcOperation := OperationSymbol;
   UpdateFormulaField('A');
-  NeedToClearCalcField := True;
-  IsOperationFirst := False;
 end;
 
 {$EndRegion}
