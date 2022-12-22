@@ -68,10 +68,7 @@ type
     procedure BtnSquaringRootClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
 
-  private
-    { Private declarations }
   public
-    { Public declarations }
     procedure AddValueToCalcField(AddValue: Char);
     procedure UpdateFormulaField(CalcOperationType: Char);
     procedure PressAryphmeticOperation(OperationSymbol: Char);
@@ -294,15 +291,14 @@ begin
   begin
     if IsResultPressFirst = True then
     begin
-      Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
+      Value2 := StrToFloat(CalcField.Text);
       ValueResult := CalcResult;
-      CalcField.Text := FloatToStr(ValueResult);
       IsResultPressFirst := False;
     end else
-    begin
+    begin  // При повторном нажатии "Равно" значение берётся из строки
       ValueResult := CalcResult;
-      CalcField.Text := FloatToStr(ValueResult);
     end;
+    CalcField.Text := FloatToStr(ValueResult);
     NeedToClearCalcField := True;
 
     if CalcField.Text = '0' then
