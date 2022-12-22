@@ -12,7 +12,8 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Dialogs,
-  Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.StdCtrls,
+  Vcl.Buttons;
 
 type
   TFormCalculator = class(TForm)
@@ -68,10 +69,7 @@ type
     procedure BtnSquaringRootClick(Sender: TObject);
     procedure FormKeyPress(Sender: TObject; var Key: Char);
 
-  private
-    { Private declarations }
   public
-    { Public declarations }
     procedure AddValueToCalcField(AddValue: Char);
     procedure UpdateFormulaField(CalcOperationType: Char);
     procedure PressAryphmeticOperation(OperationSymbol: Char);
@@ -139,11 +137,22 @@ end;
 {$Region ' PressAryphmeticOperation: Процедура обработки нажатия арифметической операции '}
 
 procedure TFormCalculator.PressAryphmeticOperation(OperationSymbol: Char);
+var
+  ValueResult: Extended;
 begin
-  Value1 := StrToFloat(CalcField.Text);
+  if IsOperationFirst = True then
+  begin
+    Value1 := StrToFloat(CalcField.Text);
+  end else
+  begin
+    Value2 := StrToFloat(CalcField.Text);
+    ValueResult := CalcResult;
+    CalcField.Text := FloatToStr(ValueResult);
+  end;
   CalcOperation := OperationSymbol;
   UpdateFormulaField('A');
   NeedToClearCalcField := True;
+  IsOperationFirst := False;
 end;
 
 {$EndRegion}
@@ -283,15 +292,14 @@ begin
   begin
     if IsResultPressFirst = True then
     begin
-      Value2 := StrToFloat(CalcField.Text); // При повторном нажатии "Равно" значение берётся из строки
+      Value2 := StrToFloat(CalcField.Text);
       ValueResult := CalcResult;
-      CalcField.Text := FloatToStr(ValueResult);
       IsResultPressFirst := False;
     end else
-    begin
+    begin  // При повторном нажатии "Равно" значение берётся из строки
       ValueResult := CalcResult;
-      CalcField.Text := FloatToStr(ValueResult);
     end;
+    CalcField.Text := FloatToStr(ValueResult);
     NeedToClearCalcField := True;
 
     if CalcField.Text = '0' then
@@ -299,6 +307,7 @@ begin
       IsContainsOnlyNull  := True;
       IsCommaExists := False;
     end;
+    IsOperationFirst := True;
   end;
 end;
 
@@ -376,6 +385,8 @@ begin
   Value1 := 0;
   Value2 := 0;
   CalcOperation := ' ';
+
+  IsOperationFirst := True;
 end;
 
 procedure TFormCalculator.BtnClearEditClick(Sender: TObject);
@@ -504,6 +515,11 @@ begin
     #8:
     begin
       BtnEraseClick(BtnErase);
+    end;
+
+    #27:
+    begin
+      BtnClearClick(BtnClear);
     end;
   end;
 end;
