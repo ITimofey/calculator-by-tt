@@ -145,22 +145,16 @@ begin
   if IsOperationFirst = True then
   begin
     Value1 := StrToFloat(CalcField.Text);
-    CalcOperation := OperationSymbol;
-    UpdateFormulaField('A');
-    NeedToClearCalcField := True;
-    IsOperationFirst := False;
   end else
   begin
     Value2 := StrToFloat(CalcField.Text);
     ValueResult := CalcResult;
     CalcField.Text := FloatToStr(ValueResult);
-
-    CalcOperation := OperationSymbol;
-    UpdateFormulaField('A');
-    NeedToClearCalcField := True;
-    IsOperationFirst := False;
   end;
-
+  CalcOperation := OperationSymbol;
+  UpdateFormulaField('A');
+  NeedToClearCalcField := True;
+  IsOperationFirst := False;
 end;
 
 {$EndRegion}
@@ -524,6 +518,11 @@ begin
     #8:
     begin
       BtnEraseClick(BtnErase);
+    end;
+
+    #27:
+    begin
+      BtnClearClick(BtnClear);
     end;
   end;
 end;
