@@ -139,11 +139,28 @@ end;
 {$Region ' PressAryphmeticOperation: Процедура обработки нажатия арифметической операции '}
 
 procedure TFormCalculator.PressAryphmeticOperation(OperationSymbol: Char);
+var
+  ValueResult: Extended;
 begin
-  Value1 := StrToFloat(CalcField.Text);
-  CalcOperation := OperationSymbol;
-  UpdateFormulaField('A');
-  NeedToClearCalcField := True;
+  if IsOperationFirst = True then
+  begin
+    Value1 := StrToFloat(CalcField.Text);
+    CalcOperation := OperationSymbol;
+    UpdateFormulaField('A');
+    NeedToClearCalcField := True;
+    IsOperationFirst := False;
+  end else
+  begin
+    Value2 := StrToFloat(CalcField.Text);
+    ValueResult := CalcResult;
+    CalcField.Text := FloatToStr(ValueResult);
+
+    CalcOperation := OperationSymbol;
+    UpdateFormulaField('A');
+    NeedToClearCalcField := True;
+    IsOperationFirst := False;
+  end;
+
 end;
 
 {$EndRegion}
@@ -299,6 +316,7 @@ begin
       IsContainsOnlyNull  := True;
       IsCommaExists := False;
     end;
+    IsOperationFirst := True;
   end;
 end;
 
@@ -376,6 +394,8 @@ begin
   Value1 := 0;
   Value2 := 0;
   CalcOperation := ' ';
+
+  IsOperationFirst := True;
 end;
 
 procedure TFormCalculator.BtnClearEditClick(Sender: TObject);
