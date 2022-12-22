@@ -12,7 +12,8 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Dialogs,
-  Vcl.StdCtrls, Vcl.Buttons;
+  Vcl.StdCtrls,
+  Vcl.Buttons;
 
 type
   TFormCalculator = class(TForm)
