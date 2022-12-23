@@ -106,9 +106,9 @@ begin // Добавить значение в строку
 
   if IsContainsOnlyNull = True then
   begin
-      CalcField.Text := '';
-      CalcField.Text := CalcField.Text + AddValue;
-      IsContainsOnlyNull := False;
+    CalcField.Text := '';
+    CalcField.Text := CalcField.Text + AddValue;
+    IsContainsOnlyNull := False;
   end
   else begin
     CalcField.Text := CalcField.Text + AddValue;
@@ -124,11 +124,11 @@ end;
 procedure TFormCalculator.UpdateFormulaField(CalcOperationType: Char);
 begin
   case CalcOperationType of
-    'A' : begin // Арифметический тип операции
+    'A' : begin // Арифметический тип операции (пример отображения: 10 + )
       FormulaField.Text := FloatToStr(Value1) + ' ' + CalcOperation;
     end;
 
-    'R' : begin // Результирующий тип операции
+    'R' : begin // Результирующий тип операции (пример отображения: 10 + 2 = 12)
       FormulaField.Text := FloatToStr(Value1) + ' '
       + CalcOperation + ' ' + FloatToStr(Value2) + ' = ';
     end;
@@ -154,7 +154,6 @@ begin
       ValueResult := CalcResult;
       CalcField.Text := FloatToStr(ValueResult);
     end;
-
     NeedToClearCalcField := True;
     IsOperationFirst := False;
     LastOperationIsPressAryphmeticOperation := True;
@@ -186,13 +185,13 @@ begin
     end;
 
     '/' : begin
-      if Value2<>0 then
+      if Value2 <> 0 then
         begin
           ResultValue := Value1 / Value2;
         end else
         begin
           ShowMessage('ОШИБКА! Деление на ноль.');
-          BtnClearClick(nil);
+          BtnClearClick(BtnClear);
         end;
     end;
 
@@ -206,7 +205,6 @@ begin
 end;
 
 {$EndRegion}
-
 
 {$Region ' BtnClick: Обработка нажатий кнопок калькулятора '}
 
@@ -265,7 +263,7 @@ end;
 
 {$EndRegion}
 
-{$Region ' BtnClick: Математические операции '}
+{$Region ' BtnClick: Арифметические операции '}
 
 procedure TFormCalculator.btnPlusClick(Sender: TObject);
 begin
@@ -304,7 +302,7 @@ begin
       ValueResult := CalcResult;
       IsResultPressFirst := False;
     end else
-    begin  // При повторном нажатии "Равно" значение берётся из строки
+    begin
       ValueResult := CalcResult;
     end;
     CalcField.Text := FloatToStr(ValueResult);
@@ -389,18 +387,15 @@ begin
   NeedToClearCalcField  := False;
   IsCommaExists := False;
   IsContainsOnlyNull := True;
-
   Value1 := 0;
   Value2 := 0;
   CalcOperation := ' ';
-
   IsOperationFirst := True;
 end;
 
 procedure TFormCalculator.BtnClearEditClick(Sender: TObject);
 begin
   CalcField.Text := '0';
-  Value1 := 0;
   IsContainsOnlyNull := True;
   IsCommaExists := False;
 end;
@@ -412,7 +407,6 @@ begin
   if (CalcField.Text <> '') then
   begin
     CalcFieldValue := CalcField.Text;
-
     if CalcFieldValue[Length(CalcFieldValue)] = ',' then
     begin
       IsCommaExists := False;
